@@ -15,3 +15,5 @@ source "$OMARCHY_PATH/default/bash/rc"
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     tmux new-session
 fi
+
+eval "$(atuin init bash)"
