@@ -12,3 +12,6 @@ source "$OMARCHY_PATH/default/bash/rc"
 #
 # Make an alias for invoking commands you use constantly
 # alias p='python'
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+    tmux new-session
+fi
