@@ -28,7 +28,9 @@
 -- o.bind("SUPER + H", nil, "voxtype record toggle")
 -- o.bind("SUPER + PERIOD", nil, "omarchy-shell shell toggle omarchy.emojis")
 hl.unbind("SUPER + SHIFT + P")
+hl.unbind("SUPER + SHIFT + F")
 o.bind("SUPER + SHIFT + P", nil, "helium-browser --incognito")
+o.bind("SUPER + SHIFT + F", nil, "firefox")
 local workspaces = {
     A = 11, B = 12, --C = 13,
     D = 14, E = 15,
