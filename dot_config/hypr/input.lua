@@ -9,6 +9,7 @@ hl.config({
     kb_layout = "us",
     -- kb_options = "compose:caps,shift:both_capslock_cancel,grp:alts_toggle",
 
+    kb_options = "",
     -- Change speed of keyboard repeat.
     -- repeat_rate = 40,
     -- repeat_delay = 250,
