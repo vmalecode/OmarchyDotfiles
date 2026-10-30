@@ -30,7 +30,7 @@ hl.config({
     },
 
     -- Change to niri-like side-scrolling layout.
-    layout = "scrolling",
+    layout = "dwindle",
   },
 })
 
