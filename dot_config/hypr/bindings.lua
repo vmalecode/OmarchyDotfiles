@@ -53,8 +53,9 @@ hl.unbind("SUPER + SHIFT + B") -- was: Browser
 hl.unbind("SUPER + SHIFT + N") -- was: Editor
 
 local workspaces = {
-    A = 11, B = 12, --C = 13,
-    D = 14, E = 15,
+    -- A = 11 and D = 14 are taken by focus left/right below.
+    B = 12, --C = 13,
+    E = 15,
     -- F = 16,
     G = 17, H = 18, I = 19,
     -- J = 20, K = 21,
@@ -76,3 +77,12 @@ for key, ws in pairs(workspaces) do
     -- SUPER + SHIFT + Key to Move Active Window
     o.bind("SUPER + SHIFT + " .. key, "Move window to workspace " .. key, hl.dsp.window.move({ workspace = ws_str }))
 end
+
+-- WASD focus. Arrow keys still work too.
+hl.unbind("SUPER + W") -- was: Close window (now SUPER + SHIFT + X)
+hl.unbind("SUPER + S") -- was: Toggle scratchpad
+o.bind("SUPER + A", "Focus on left window", hl.dsp.focus({ direction = "l" }))
+o.bind("SUPER + D", "Focus on right window", hl.dsp.focus({ direction = "r" }))
+o.bind("SUPER + W", "Focus on above window", hl.dsp.focus({ direction = "u" }))
+o.bind("SUPER + S", "Focus on below window", hl.dsp.focus({ direction = "d" }))
+o.bind("SUPER + SHIFT + X", "Close window", hl.dsp.window.close())
