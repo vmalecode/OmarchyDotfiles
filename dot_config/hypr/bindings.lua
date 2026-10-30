@@ -31,6 +31,14 @@ hl.unbind("SUPER + SHIFT + P")
 hl.unbind("SUPER + SHIFT + F")
 o.bind("SUPER + SHIFT + P", nil, "helium-browser --incognito")
 o.bind("SUPER + SHIFT + F", nil, "firefox")
+-- SUPER+F was "Full screen"; now maximizes (bar and browser UI stay visible).
+hl.unbind("SUPER + F")
+o.bind("SUPER + F", "Maximize", hl.dsp.window.fullscreen({ mode = "maximized" }))
+
+-- SUPER+ALT+F was "Full width" (maximize); now true fullscreen.
+hl.unbind("SUPER + ALT + F")
+o.bind("SUPER + ALT + F", "Full screen", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
+
 local workspaces = {
     A = 11, B = 12, --C = 13,
     D = 14, E = 15,
