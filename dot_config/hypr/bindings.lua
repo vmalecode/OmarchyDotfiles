@@ -78,11 +78,18 @@ for key, ws in pairs(workspaces) do
     o.bind("SUPER + SHIFT + " .. key, "Move window to workspace " .. key, hl.dsp.window.move({ workspace = ws_str }))
 end
 
--- WASD focus. Arrow keys still work too.
+-- WASD focus. Arrow keys still work too. A/D step through windows in order on
+-- accordion workspaces.
+local accordion = require("hypr.accordion")
 hl.unbind("SUPER + W") -- was: Close window (now SUPER + SHIFT + X)
 hl.unbind("SUPER + S") -- was: Toggle scratchpad
-o.bind("SUPER + A", "Focus on left window", hl.dsp.focus({ direction = "l" }))
-o.bind("SUPER + D", "Focus on right window", hl.dsp.focus({ direction = "r" }))
+o.bind("SUPER + A", "Focus on left window", accordion.focus("l", -1))
+o.bind("SUPER + D", "Focus on right window", accordion.focus("r", 1))
 o.bind("SUPER + W", "Focus on above window", hl.dsp.focus({ direction = "u" }))
 o.bind("SUPER + S", "Focus on below window", hl.dsp.focus({ direction = "d" }))
 o.bind("SUPER + SHIFT + X", "Close window", hl.dsp.window.close())
+
+-- Accordion layout toggle (see accordion.lua). Monitor scaling keys removed.
+hl.unbind("SUPER + SLASH")       -- was: Monitor scaling up
+hl.unbind("SUPER + ALT + SLASH") -- was: Monitor scaling down
+o.bind("SUPER + SLASH", "Toggle accordion layout", accordion.toggle)
