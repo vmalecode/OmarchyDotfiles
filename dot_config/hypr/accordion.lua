@@ -1,7 +1,9 @@
 -- Accordion layout (AeroSpace-style), toggled per workspace with SUPER + /.
 --
--- Windows sit in one row at the same size, stacked. The focused window is fully
--- visible on top; the others peek out as strips on its left and right.
+-- Windows sit in one row at the same size. The focused window fills the screen
+-- except for a strip on each side, where the windows before and after it peek
+-- in from off screen. (With a second monitor beside this one, the off-screen
+-- parts would show on that monitor.)
 -- Hyprland only re-lays out Lua layouts when windows are added or removed, so a
 -- focus listener below asks for a refresh whenever focus changes.
 
@@ -62,14 +64,17 @@ hl.layout.register("accordion", {
     local right = focused < n and PEEK or 0
     local width = area.w - left - right
 
+    -- Windows must not overlap the focused one: Hyprland sends clicks on tiled
+    -- windows to whichever is first in its list, not the one drawn on top. So
+    -- the others are pushed mostly off screen, leaving only their strip visible.
     for i, target in ipairs(targets) do
       local x
       if i < focused then
-        x = area.x
+        x = area.x + PEEK - width
       elseif i == focused then
         x = area.x + left
       else
-        x = area.x + area.w - width
+        x = area.x + area.w - PEEK
       end
       target:place({ x = x, y = area.y, w = width, h = area.h })
     end
