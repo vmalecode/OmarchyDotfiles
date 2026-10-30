@@ -27,7 +27,8 @@
 -- o.bind("SUPER + SHIFT + S", nil, "omarchy-capture-screenshot")
 -- o.bind("SUPER + H", nil, "voxtype record toggle")
 -- o.bind("SUPER + PERIOD", nil, "omarchy-shell shell toggle omarchy.emojis")
-hl.unbind("SUPER + SHIFT + P")
+-- SUPER+SHIFT+F was "File manager". (SUPER+SHIFT+P is free because
+-- omarchy_preinstalled_bindings = false in hyprland.lua.)
 hl.unbind("SUPER + SHIFT + F")
 o.bind("SUPER + SHIFT + P", nil, "helium-browser --incognito")
 o.bind("SUPER + SHIFT + F", nil, "firefox")
@@ -38,6 +39,18 @@ o.bind("SUPER + F", "Maximize", hl.dsp.window.fullscreen({ mode = "maximized" })
 -- SUPER+ALT+F was "Full width" (maximize); now true fullscreen.
 hl.unbind("SUPER + ALT + F")
 o.bind("SUPER + ALT + F", "Full screen", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
+
+-- Letter workspaces: SUPER + letter goes there, SUPER + SHIFT + letter moves the
+-- window there. Ids 11-36 map to A-Z; the bar widget
+-- (omarchy/plugins/aaron.workspaces) derives the letter from the id, so keep
+-- that mapping if you change this table.
+--
+-- Free up keys that Omarchy binds to something else. Omarchy's app shortcuts
+-- are already off via omarchy_preinstalled_bindings = false in hyprland.lua.
+hl.unbind("SUPER + G")         -- was: Toggle window grouping
+hl.unbind("SUPER + L")         -- was: Toggle workspace layout
+hl.unbind("SUPER + SHIFT + B") -- was: Browser
+hl.unbind("SUPER + SHIFT + N") -- was: Editor
 
 local workspaces = {
     A = 11, B = 12, --C = 13,
@@ -58,8 +71,8 @@ for key, ws in pairs(workspaces) do
     local ws_str = tostring(ws)
 
     -- SUPER + Key to Focus Workspace
-    o.bind("SUPER + " .. key, nil, hl.dsp.focus({ workspace = ws_str }))
+    o.bind("SUPER + " .. key, "Workspace " .. key, hl.dsp.focus({ workspace = ws_str }))
 
     -- SUPER + SHIFT + Key to Move Active Window
-    o.bind("SUPER + SHIFT + " .. key, "Move window to workspace " .. ws_str, hl.dsp.window.move({ workspace = ws_str }))
+    o.bind("SUPER + SHIFT + " .. key, "Move window to workspace " .. key, hl.dsp.window.move({ workspace = ws_str }))
 end

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Warn when Omarchy updates its workspaces bar widget, since the bar uses a
+# customised clone (aaron.workspaces) that won't pick up upstream changes.
+# Workspaces.qml.orig is the upstream version the clone was based on. After
+# merging any upstream changes into the clone, copy the new upstream file over
+# Workspaces.qml.orig to clear the warning.
+
+UPSTREAM="${OMARCHY_PATH:-/usr/share/omarchy}/shell/plugins/bar/widgets/Workspaces.qml"
+BASE="$HOME/.config/omarchy/plugins/aaron.workspaces/Workspaces.qml.orig"
+
+[[ -f $UPSTREAM && -f $BASE ]] || exit 0
+cmp -s "$UPSTREAM" "$BASE" && exit 0
+
+echo "Omarchy's workspaces widget changed; review: diff $BASE $UPSTREAM"
+omarchy-notification-send -u critical "Workspaces widget updated upstream" \
+  "Merge changes into ~/.config/omarchy/plugins/aaron.workspaces, then refresh Workspaces.qml.orig."
