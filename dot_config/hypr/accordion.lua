@@ -93,12 +93,34 @@ local function active_is_accordion()
   return ws ~= nil and ws.tiled_layout == M.layout, ws
 end
 
+-- Hover-to-focus makes focus cascade along the strips: focusing a strip shifts
+-- the next strip under the cursor. On accordion workspaces only a click changes
+-- focus (follow_mouse = 2); elsewhere the normal setting is restored.
+local normal_follow_mouse = hl.get_config("input.follow_mouse")
+
+-- Runs slightly later because right after a layout change or workspace switch
+-- Hyprland can still report the old layout.
+local function sync_follow_mouse()
+  hl.timer(function()
+    local want = active_is_accordion() and 2 or normal_follow_mouse
+    if hl.get_config("input.follow_mouse") ~= want then
+      hl.config({ input = { follow_mouse = want } })
+    end
+  end, { timeout = 50, type = "oneshot" })
+end
+
 -- Expand the newly focused window.
 hl.on("window.active", function()
+  sync_follow_mouse()
   if active_is_accordion() then
     hl.dispatch(hl.dsp.layout("refresh"))
   end
 end)
+
+hl.on("workspace.active", function()
+  sync_follow_mouse()
+end)
+sync_follow_mouse()
 
 -- Focus the previous/next window in accordion order; elsewhere, plain
 -- directional focus.
@@ -138,6 +160,7 @@ function M.toggle()
   local rule = string.format('hl.workspace_rule({ workspace = "%d", layout = "%s" })', ws.id, layout)
 
   hl.workspace_rule({ workspace = tostring(ws.id), layout = layout })
+  sync_follow_mouse()
 
   local dir = (os.getenv("XDG_STATE_HOME") or (os.getenv("HOME") .. "/.local/state")) .. "/omarchy/workspace-layouts"
   os.execute("mkdir -p '" .. dir .. "'")
