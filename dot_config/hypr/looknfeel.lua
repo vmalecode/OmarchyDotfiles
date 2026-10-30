@@ -66,9 +66,12 @@ hl.config({
 })
 
 -- https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/
--- hl.config({
---   scrolling = {
---     -- See only one column per screen instead of two.
---     column_width = 0.97,
---   },
--- })
+-- Used on workspaces toggled with SUPER + / (see workspace-layout.lua).
+hl.config({
+  scrolling = {
+    -- Focused window ~95% wide, so ~48px of each neighbour peeks in. 0.9 = ~96px.
+    column_width = 0.95,
+    -- Always center the focused window.
+    focus_fit_method = 0,
+  },
+})
