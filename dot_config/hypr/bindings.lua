@@ -53,7 +53,7 @@ hl.unbind("SUPER + SHIFT + B") -- was: Browser
 hl.unbind("SUPER + SHIFT + N") -- was: Editor
 
 local workspaces = {
-    -- A = 11 and D = 14 are taken by focus left/right below.
+    -- A, D (and W, S) are taken by focus/swap below.
     B = 12, --C = 13,
     E = 15,
     -- F = 16,
@@ -85,6 +85,11 @@ o.bind("SUPER + A", "Focus on left window", hl.dsp.focus({ direction = "l" }))
 o.bind("SUPER + D", "Focus on right window", hl.dsp.focus({ direction = "r" }))
 o.bind("SUPER + W", "Focus on above window", hl.dsp.focus({ direction = "u" }))
 o.bind("SUPER + S", "Focus on below window", hl.dsp.focus({ direction = "d" }))
+-- WASD swap. SUPER + SHIFT + arrows still work too.
+o.bind("SUPER + SHIFT + A", "Swap window to the left", hl.dsp.window.swap({ direction = "l" }))
+o.bind("SUPER + SHIFT + D", "Swap window to the right", hl.dsp.window.swap({ direction = "r" }))
+o.bind("SUPER + SHIFT + W", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
+o.bind("SUPER + SHIFT + S", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
 o.bind("SUPER + SHIFT + X", "Close window", hl.dsp.window.close())
 
 -- Toggle the workspace between dwindle and scrolling (see workspace-layout.lua).
