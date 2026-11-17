@@ -1,27 +1,63 @@
 {
-  "version": 1,
-  "idle": {
-    "screensaver": 1500,
-    "lock": 3000
-  },
   "bar": {
-    "position": "top",
-    "transparent": true,
+    "background": "opaque",
     "layout": {
+      "center": [
+        {
+          "format": "h:mm AP",
+          "formatAlt": "d MMMM 'W'ww yyyy",
+          "id": "omarchy.clock",
+          "verticalFormat": "HH\n—\nmm"
+        }
+      ],
+      "centerBegin": [
+        {
+          "id": "omarchy.indicators"
+        }
+      ],
+      "centerEnd": [
+        {
+          "cities": [
+            {
+              "lat": 47.60621,
+              "lon": -122.33207,
+              "name": "Seattle",
+              "region": "Washington, US",
+              "zone": "America/Los_Angeles"
+            },
+            {
+              "lat": 42.35843,
+              "lon": -71.05977,
+              "name": "Boston",
+              "region": "Massachusetts, US",
+              "zone": "America/New_York"
+            }
+          ],
+          "here": {
+            "lat": 47.60621,
+            "lon": -122.33207,
+            "name": "Seattle",
+            "region": "Washington, US",
+            "zone": "America/Los_Angeles"
+          },
+          "id": "omarchy.elsewhen"
+        },
+        {
+          "id": "omarchy.weather"
+        },
+        {
+          "id": "omarchy.monitor"
+        },
+        {
+          "id": "omarchy.system-update"
+        }
+      ],
       "left": [
         {
           "id": "omarchy.menu"
         },
         {
           "id": "aaron.workspaces"
-        }
-      ],
-      "center": [
-        {
-          "id": "omarchy.clock",
-          "format": "h:mm AP",
-          "formatAlt": "d MMMM 'W'ww yyyy",
-          "verticalFormat": "HH\n—\nmm"
         }
       ],
       "right": [
@@ -47,50 +83,14 @@
           "id": "omarchy.power"
         }
       ],
-      "centerBegin": [
-        {
-          "id": "omarchy.indicators"
-        }
-      ],
-      "centerEnd": [
-        {
-          "id": "omarchy.elsewhen",
-          "cities": [
-            {
-              "name": "Seattle",
-              "zone": "America/Los_Angeles",
-              "lat": 47.60621,
-              "lon": -122.33207,
-              "region": "Washington, US"
-            },
-            {
-              "name": "Boston",
-              "zone": "America/New_York",
-              "lat": 42.35843,
-              "lon": -71.05977,
-              "region": "Massachusetts, US"
-            }
-          ],
-          "here": {
-            "name": "Seattle",
-            "zone": "America/Los_Angeles",
-            "lat": 47.60621,
-            "lon": -122.33207,
-            "region": "Washington, US"
-          }
-        },
-        {
-          "id": "omarchy.weather"
-        },
-        {
-          "id": "omarchy.monitor"
-        },
-        {
-          "id": "omarchy.system-update"
-        }
-      ],
       "tray": []
-    }
+    },
+    "position": "top"
   },
-  "plugins": []
+  "idle": {
+    "lock": 3000,
+    "screensaver": 1500
+  },
+  "plugins": [],
+  "version": 1
 }
